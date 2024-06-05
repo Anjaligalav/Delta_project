@@ -19,12 +19,15 @@
         padding: 0.5rem 3rem 0.5rem 3rem;
         font-size: 0.8rem;
     }
+    .navbar {
+        z-index: 1000; /* Ensure navbar is always on top */
+    }
 </style>
 
 <nav class="navbar navbar-expand-md navbar-light bg-light border-bottom sticky-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="/listings"><i class="fa-regular fa-compass"></i></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -33,21 +36,40 @@
             </div>
             <div class="navbar-nav ms-auto">
                 <form class="d-flex">
-                    <input class="form-control me-2 search-input" type="search" placeholder="Search destinations" >
+                    <input class="form-control me-2 search-input" type="search" placeholder="Search destinations">
                     <button class="btn search-btn" type="submit"><i class="fa-solid fa-magnifying-glass icon"></i>Search</button>
                 </form>
             </div>
-            <div class="navbar-nav ms-auto">
+            <div class="navbar-nav ms-auto d-none d-md-flex"> <!-- Show these links on medium and larger screens -->
                 <a class="nav-link" href="/listings/createNew">Airbnb your home</a>
-                <% if(!currUser){ %>
-                    <a class="nav-link " aria-current="page" href="/signup"><b>Sign up</b></a>
+                <% if (!currUser) { %>
+                    <a class="nav-link" aria-current="page" href="/signup"><b>Sign up</b></a>
                     <a class="nav-link" href="/login"><b>Login</b></a>
                 <% } %>
-
-                <% if(currUser){ %>
-                <a class="nav-link" href="/logout"><b>Logout</b></a>
+                <% if (currUser) { %>
+                    <a class="nav-link" href="/logout"><b>Logout</b></a>
                 <% } %>
             </div>
         </div>
     </div>
 </nav>
+
+<!-- Sidebar Offcanvas -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="navbar-nav d-md-none"> <!-- Hide these links on medium and larger screens -->
+            <a class="nav-link" href="/listings/createNew">Airbnb your home</a>
+            <% if (!currUser) { %>
+                <a class="nav-link" aria-current="page" href="/signup"><b>Sign up</b></a>
+                <a class="nav-link" href="/login"><b>Login</b></a>
+            <% } %>
+            <% if (currUser) { %>
+                <a class="nav-link" href="/logout"><b>Logout</b></a>
+            <% } %>
+        </div>
+    </div>
+</div>
