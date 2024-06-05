@@ -86,9 +86,14 @@
                     Rated: <%= review.rating %> stars
                 </p>
                 <p class="card-text"><%= review.comment %></p>
-                <form class="mb-3" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=delete" method="post">
-                    <button type="submit" class="btn btn-sm btn-dark">Delete</button>
-                </form>
+
+                <% if(currUser.username === review.author.username){ %>
+
+                    <form class="mb-3" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=delete" method="post">
+                        <button type="submit" class="btn btn-sm btn-dark">Delete</button>
+                    </form>
+                
+                <% } %>
             </div>
         </div>
     <% } %>
